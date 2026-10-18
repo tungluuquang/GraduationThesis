@@ -1,0 +1,161 @@
+% chktex-file 13
+Để hỗ trợ kiểm thử các chương trình sử dụng đối tượng \texttt{std::atomic}, nghiên cứu đề xuất mở rộng cơ chế biểu diễn dữ liệu và sinh mã kiểm thử trong công cụ AKAUTAUTO. Trong phiên bản hiện tại, hệ thống đã hỗ trợ nhiều kiểu dữ liệu cơ bản và một số cấu trúc dữ liệu thuộc thư viện STL. Tuy nhiên, các đối tượng \texttt{std::atomic} chưa được nhận diện và xử lý đầy đủ trong quá trình xây dựng cây dữ liệu kiểm thử cũng như sinh test driver. Điều này khiến công cụ gặp khó khăn khi làm việc với các hàm có tham số hoặc biến sử dụng kiểu dữ liệu nguyên tử.
+
+% chktex-file 1
+% chktex-file 24
+% chktex-file 36
+Giải pháp đề xuất gồm ba nội dung chính:
+
+\begin{enumerate}
+    \item Nhận diện kiểu dữ liệu \texttt{std::atomic} trong quá trình phân tích mã nguồn.
+
+    \item Xây dựng lớp \texttt{AtomicDataNode} để biểu diễn đối tượng nguyên tử trong cây dữ liệu kiểm thử.
+
+    \item Mở rộng cơ chế sinh test driver nhằm hỗ trợ khởi tạo và xử lý các đối tượng \texttt{atomic}.
+\end{enumerate}
+
+
+\section{Nhận diện kiểu dữ liệu \texttt{atomic}}
+
+Trong phiên bản gốc, AKAUTAUTO hỗ trợ một số kiểu dữ liệu thuộc thư viện STL như \texttt{vector}, \texttt{set}, \texttt{map}, \texttt{queue} và các smart pointer. Khi phân tích mã nguồn, hệ thống dựa trên thông tin kiểu dữ liệu thu được từ AST để xác định lớp DataNode tương ứng.
+
+Để hỗ trợ \texttt{std::atomic}, hệ thống được mở rộng bằng cách bổ sung kiểu \texttt{atomic} vào danh sách các kiểu STL được nhận diện. Khi gặp một biến kiểu \texttt{std::atomic} với tham số mẫu \texttt{T}, hệ thống xác định \texttt{T} là kiểu dữ liệu cơ sở và chuyển sang cơ chế xử lý riêng thay vì coi đây là một biến thông thường.
+
+Việc nhận diện chính xác kiểu \texttt{atomic} là điều kiện tiên quyết để xây dựng mô hình dữ liệu phù hợp cũng như sinh mã kiểm thử chính xác cho các đối tượng nguyên tử.
+
+\section{Thiết kế lớp \texttt{AtomicDataNode}}
+
+Sau khi nhận diện được kiểu dữ liệu \texttt{std::atomic}, nghiên cứu xây dựng lớp \texttt{AtomicDataNode} kế thừa từ \texttt{STLDataNode} để biểu diễn đối tượng nguyên tử trong Data Tree.
+
+Việc kế thừa từ \texttt{STLDataNode} cho phép tái sử dụng cơ chế quản lý dữ liệu và tổ chức cây dữ liệu đã được triển khai trong \textit{AKAUTAUTO}, đồng thời hạn chế tối đa các thay đổi đối với kiến trúc hiện có của hệ thống.
+
+Khác với các container STL như \texttt{vector}, \texttt{list} hay \texttt{map}, \texttt{std::atomic} chỉ bao bọc một giá trị cơ sở duy nhất. Do đó, mỗi đối tượng \texttt{atomic} được biểu diễn bởi một nút \texttt{AtomicDataNode} chứa một nút con lưu trữ giá trị thực của kiểu dữ liệu cơ sở.
+
+\begin{figure}[H]
+\centering
+\begin{forest}
+for tree={
+draw,
+rounded corners,
+align=center,
+parent anchor=south,
+child anchor=north
+}
+[{AtomicDataNode\\\texttt{atomic<int>}}
+  [{ValueDataNode\\\texttt{10}}]
+]
+\end{forest}
+\caption{Mô hình biểu diễn đối tượng atomic trong Data Tree}
+\label{fig:atomic_data_tree}
+\end{figure}
+
+Hình~\ref{fig:atomic_data_tree} minh họa cách biểu diễn đối tượng \texttt{std::atomic<int>} trong cây dữ liệu kiểm thử. Nút \texttt{AtomicDataNode} đóng vai trò là lớp bao ngoài của đối tượng nguyên tử, trong khi nút con \texttt{ValueDataNode} lưu trữ giá trị thực của kiểu dữ liệu cơ sở. Cách biểu diễn này cho phép người dùng cấu hình dữ liệu kiểm thử cho đối tượng \texttt{atomic} tương tự như các kiểu dữ liệu đã được hỗ trợ trước đó.
+
+\section{Sinh test driver cho đối tượng \texttt{atomic}}
+
+Sau khi xây dựng được mô hình \texttt{AtomicDataNode}, hệ thống cần sinh mã khởi tạo tương ứng trong test driver. Quá trình này được thực hiện dựa trên thông tin lưu trữ trong Data Tree, bao gồm kiểu dữ liệu cơ sở và giá trị do người dùng cung cấp.
+
+Thuật toán sinh mã được thực hiện theo các bước sau:
+
+\begin{algorithm}[H]
+\caption{Sinh mã kiểm thử cho đối tượng \texttt{std::atomic}}
+\label{alg:atomic-driver-generation}
+\begin{algorithmic}[1]
+\Require Nút dữ liệu \texttt{AtomicDataNode} biểu diễn đối tượng \texttt{std::atomic<T>}
+\Ensure Đoạn mã khởi tạo đối tượng \texttt{atomic} trong test driver
+
+\State Trích xuất kiểu dữ liệu cơ sở \texttt{T} từ kiểu \texttt{std::atomic<T>}
+\State Lấy tên biến kiểm thử từ \texttt{AtomicDataNode}
+\State Lấy nút con biểu diễn giá trị thực của kiểu \texttt{T}
+\State Sinh mã khai báo biến \texttt{std::atomic<T>}
+\If{nút con có giá trị kiểm thử}
+    \State Sinh biến tạm lưu giá trị kiểu \texttt{T}
+    \State Sinh câu lệnh \texttt{atomicVar.store(value)}
+\Else
+    \State Bỏ qua bước khởi tạo giá trị cho đối tượng \texttt{atomic}
+\EndIf
+\State Trả về đoạn mã kiểm thử đã sinh
+\end{algorithmic}
+\end{algorithm}
+
+Ví dụ, đối với cấu trúc dữ liệu trong Hình~\ref{fig:atomic_data_tree}, hệ thống sẽ sinh đoạn mã kiểm thử:
+
+\begin{lstlisting}[language=C++,caption={Ví dụ khai báo đối tượng std::atomic trong test driver},label={lst:std_atomic_example}]
+std::atomic<int> value;
+int value_AtomicValue = 10;
+value.store(value_AtomicValue);
+\end{lstlisting}
+
+Việc sử dụng phương thức \texttt{store()} thay cho phép gán trực tiếp giúp mã kiểm thử tuân thủ ngữ nghĩa của thư viện \texttt{std::atomic} và bảo đảm khả năng biên dịch trong môi trường C++.
+
+\section{Điều chỉnh cơ chế xử lý stub đối với \texttt{atomic}}
+
+Trong AKAUTAUTO, quá trình sinh test driver và stub thường yêu cầu sao chép dữ liệu giữa các biến~\cite{trannguyenhuong2022stub}. Đối với các kiểu dữ liệu thông thường, việc sao chép được thực hiện thông qua phép gán trực tiếp:
+
+\begin{lstlisting}[language=C++,caption={Ví dụ khai báo đối tượng stub},label={lst:stub_example}]
+int dest;
+int AKA_stub_1 = 3;
+
+dest = AKA_stub_1;
+\end{lstlisting}
+
+Tuy nhiên, cách tiếp cận này không phù hợp đối với các đối tượng \texttt{std::atomic}. Việc sử dụng phép gán trực tiếp trong một số ngữ cảnh sinh mã có thể dẫn đến lỗi biên dịch hoặc không phản ánh đúng cơ chế truy cập dữ liệu nguyên tử của thư viện chuẩn C++.
+
+Để khắc phục hạn chế này, hệ thống được điều chỉnh để sử dụng cặp thao tác \texttt{load()} và \texttt{store()} khi xử lý các đối tượng nguyên tử. Cụ thể, giá trị hiện tại của đối tượng nguồn được lấy thông qua \texttt{load()} và sau đó được ghi vào đối tượng đích bằng \texttt{store()}:
+
+\begin{lstlisting}[language=C++,caption={Ví dụ sử dụng stub với đối tượng std::atomic},label={lst:std_atomic_stub_example}]
+std::atomic<int> AKA_STUB_value;
+std::atomic<int> dest;
+int AKA_STUB_value_AtomicValue = 5;
+AKA_STUB_value.store(AKA_STUB_value_AtomicValue);
+dest.store(AKA_STUB_value.load());
+\end{lstlisting}
+
+Cách tiếp cận này bảo đảm việc sao chép dữ liệu giữa các đối tượng \texttt{atomic} tuân thủ đúng ngữ nghĩa của thư viện chuẩn, đồng thời giúp các đoạn mã được sinh ra có thể biên dịch và thực thi thành công. Đây cũng là bước cần thiết để hỗ trợ đầy đủ các tham số và biến có kiểu \texttt{std::atomic} trong quá trình kiểm thử.
+
+\section{Quy trình kiểm thử hỗ trợ \texttt{atomic}}
+
+Sau khi bổ sung cơ chế hỗ trợ \texttt{atomic}, quy trình kiểm thử của hệ thống bao gồm các bước:
+
+\begin{enumerate}
+\item Phân tích AST và nhận diện đối tượng \texttt{std::atomic}.
+\item Xây dựng Data Tree chứa nút \texttt{AtomicDataNode}.
+\item Cho phép người dùng nhập giá trị kiểm thử cho đối tượng nguyên tử.
+\item Sinh test driver tương ứng.
+\item Biên dịch và thực thi chương trình kiểm thử.
+\item Thu thập và hiển thị kết quả độ phủ mã nguồn.
+\end{enumerate}
+
+\begin{figure}[H]
+\centering
+
+\begin{forest}
+for tree={
+draw,
+rounded corners,
+align=center,
+minimum width=4cm
+}
+[C/C++ Source Code
+    [AST Analysis\\Detect \texttt{std::atomic<T>}
+        [Data Tree Construction\\\texttt{AtomicDataNode}
+            [User Input Test Data
+                [{Test Driver Generation\\\texttt{store()}, \texttt{load()}}
+                    [Compile \& Execute
+                        [Coverage Collection
+                            [Coverage Report]
+                        ]
+                    ]
+                ]
+            ]
+        ]
+    ]
+]
+\end{forest}
+
+\caption{Quy trình hỗ trợ đối tượng \texttt{std::atomic} trong AKAUTAUTO}
+\label{fig:atomic_workflow}
+
+\end{figure}
+
+Giải pháp đề xuất giúp AKAUTAUTO hỗ trợ các đối tượng \texttt{std::atomic} trong toàn bộ quy trình kiểm thử hiện tại, từ giai đoạn phân tích mã nguồn, xây dựng cây dữ liệu, sinh test driver đến thực thi chương trình kiểm thử và thu thập độ phủ mã nguồn. Qua đó, phạm vi hỗ trợ của công cụ được mở rộng đối với các chương trình C/C++ sử dụng kiểu dữ liệu nguyên tử.

@@ -1,0 +1,155 @@
+\usepackage[justification=centering]{caption}
+% \usepackage{babel}
+%\usepackage{times} \usepackage{graphicx}
+% ---------------------------------------------------------------------
+% LƯU Ý THỨ TỰ NẠP GÓI FONT:
+%   mathptmx (font toán kiểu Times) BẮT BUỘC nạp TRƯỚC fontspec,
+%   vì mathptmx có lệnh \def\rmdefault{ptm} -> nếu nạp sau fontspec thì nó sẽ
+%   ghi đè \setmainfont và toàn bộ văn bản sẽ bị LaTeX thay bằng font Latin Modern
+%   thay vì Times New Roman.
+% ---------------------------------------------------------------------
+\usepackage{mathptmx}   % same Time New Roman (nạp TRƯỚC fontspec - xem lưu ý trên)
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+\usepackage{amsmath} 
+\usepackage{indentfirst}
+
+%\renewcommand{\rmdefault}{phv} % Arial \renewcommand{\sfdefault}{phv} % Arial \usepackage[fontsize=13pt]{scrextend}
+
+
+\usepackage{fancyhdr}
+% \usepackage[utf8]{inputenc}
+\usepackage[vietnamese, english]{babel}
+\usepackage{titlesec}
+
+\usepackage{titletoc}
+\usepackage{listings}
+\usepackage[bookmarks=true]{hyperref}
+\usepackage[left=3cm,right=2cm,top=2.5cm,bottom=3cm]{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{varwidth}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{color}
+\usepackage{multirow}
+\usepackage{booktabs}
+% Gói thuật toán: dùng combo algorithm + algpseudocode (khớp với nội dung các chương).
+% KHÔNG dùng algorithm2e vì nó xung đột với algpseudocode (\If, \Else, \EndIf).
+\usepackage{algorithm}
+\usepackage{algpseudocode}   % hỗ trợ môi trường algorithmic (\State, \If, \Require, ...) dùng trong nội dung các chương
+\floatname{algorithm}{Thuật toán}
+\counterwithin{algorithm}{chapter}   % đánh số thuật toán theo chương: 2.1
+\usepackage{svg}
+\usepackage{tabularx}
+\usepackage{nomencl}
+\usepackage{scrfontsizes}
+\usepackage{longtable}
+\usepackage{multicol}
+\usepackage{enumitem}   % hỗ trợ tùy chỉnh danh sách: \begin{itemize}[leftmargin=*, itemsep=0.3em]
+\usepackage[toc,page]{appendix}
+\usepackage{adjustbox}
+\usepackage{setspace}
+% \usepackage{algorithm} \floatname{algorithm}{Thuật toán} \usepackage{algpseudocode}
+
+\usepackage{makecell}
+\usepackage{longtable}
+\usepackage{multirow}
+% \usepackage{algpseudocode}
+\usepackage{setting/bkthesis}
+\usepackage[toc]{appendix}
+
+%\counterwithin{figure}{chapter}
+\usepackage[ defernumbers, sortcites, backend=biber, bibstyle=authoryear, sorting=none, citestyle=numeric-comp
+]{biblatex}
+\usepackage{xpatch}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric}
+\usepackage{forest}   % vẽ cây dữ liệu (Data Tree) trong chương Phương pháp đề xuất
+\usetikzlibrary{arrows.meta,arrows}
+\titlelabel{\thetitle. }
+
+% \usepackage{csquotes}
+% \DeclareQuoteStyle{vietnamese}
+% \UseLanguage{Vietnamese}
+
+\makeatletter
+\input{numeric.bbx}
+\makeatother
+
+\xpatchbibmacro{date+extrayear}{%
+  \printtext[parens]%
+}{%
+  \setunit{\addperiod\space}%
+  \printtext%
+}{}{}
+
+% \usepackage{biblatex}
+\addbibresource{refs.bib}
+
+% \renewcommand\labelitemi{--}
+
+\setlength{\parskip}{6pt}
+
+\usetikzlibrary{calc}
+\setlength{\parindent}{10mm}
+\renewcommand{\baselinestretch}{1.3}
+\graphicspath{{images/}}
+\renewcommand{\listalgorithmname}{Danh sách thuật toán}
+\renewcommand{\nomname}{Danh sách ký hiệu, viết tắt}
+\renewcommand\appendixtocname{Phụ lục}
+
+% (đã gỡ \SetKwRepeat - lệnh riêng của algorithm2e; nội dung các chương không dùng)
+
+% \algdef{SE}[DOWHILE]{Do}{doWhile}{\algorithmicdo}[1]{\algorithmicwhile\ #1}% \usepackage{setting/uetthesis}
+
+%%% The following lines add Chapter or Appendix in front of the number
+\titlecontents{chapter}%
+[0pt]%
+{\vspace{1ex}}%
+{\bfseries Chương \thecontentslabel\quad}%
+{\bfseries}%
+{\bfseries\hfill\contentspage}
+%%% Initially, for the main part of the document, set the label to "Chapter"
+\let\chapappname\chaptername{}
+
+\setcounter{tocdepth}{4}
+\setcounter{secnumdepth}{4}
+
+% \thesislayout hyper setup
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+% setup code area as listings
+\lstset{frame=tb, language=Java, xleftmargin=10pt,xrightmargin=10pt,
+%   framesep=2cm, aboveskip=2cm, belowskip=2cm,
+  showstringspaces=false, columns=flexible, basicstyle={\small\ttfamily}, numbers=left, numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue}, commentstyle=\color{dkgreen}, stringstyle=\color{mauve}, breaklines=true,
+  breakatwhitespace=true, tabsize=2 }
+
+\newcommand{\tcode}[1]{{\ttfamily\selectfont#1}}
+
+\colorlet{punct}{red!60!black}
+\definecolor{delim}{RGB}{20,105,176}
+\colorlet{numb}{magenta!60!black}
+
+
+
+
+\renewcommand\lstlistlistingname{Danh sách đoạn mã}
+\renewcommand{\lstlistingname}{Đoạn mã}
+\renewcommand\thechapter{\arabic{chapter}}
+\renewcommand\thesection{\thechapter.\arabic{section}} 
+\renewcommand\thesubsection{\thesection.\arabic{subsection}}
+\renewcommand\thesubsubsection{\thesubsection.\arabic{subsubsection}}
+\renewcommand{\thetable}{\thechapter.\arabic{table}} 
+\renewcommand{\thefigure}{\thechapter.\arabic{figure}}
+
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
+% L nhận tham số độ rộng cột, dùng như L{4cm} trong các bảng của nội dung chương
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{F}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+\newtheorem{definition}{\indent Định nghĩa}[chapter]

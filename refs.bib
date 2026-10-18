@@ -1,0 +1,103 @@
+% =====================================================================
+%  refs.bib - Tài liệu tham khảo
+%  Khóa luận: Phương pháp tạo dữ liệu kiểm thử thủ công cho đối tượng atomic trong dự án C++
+%  Sinh viên: Lưu Quang Tùng (23020150)
+%
+%  QUY ƯỚC CỦA TEMPLATE (main.tex in ra 2 mục riêng biệt):
+%    - Entry có  keywords = {vietnam}  -> in ở mục "Tiếng Việt"
+%    - Các entry còn lại                -> in ở mục "Tiếng Anh"
+%
+%  LƯU Ý 1: biblatex chỉ in ra những tài liệu ĐƯỢC TRÍCH DẪN trong nội dung
+%  (bằng lệnh \cite{...}). 10 tài liệu dưới đây đã được trích dẫn trong các
+%  chương mẫu; bạn thay dần bằng tài liệu của mình.
+%
+%  LƯU Ý 2: biblatex KHÔNG hỗ trợ @mastersthesis / @phdthesis (của BibTeX).
+%  Với luận văn, dùng @thesis kèm type = {Luận văn thạc sĩ} hoặc type = {phdthesis}.
+%
+%  Tra nhanh cú pháp: @book, @article, @inproceedings, @thesis, @techreport,
+%  @online, @manual, @misc, ...
+% =====================================================================
+
+% ================== Tài liệu tiếng Việt (keywords = vietnam) ==================
+
+@book{phamngochung2014testing,
+  title     = {Giáo trình Kiểm thử phần mềm},
+  author    = {Phạm, Ngọc Hùng and Trương, Anh Hoàng and Đặng, Văn Hưng},
+  publisher = {Nhà xuất bản Đại học Quốc gia Hà Nội},
+  address   = {Hà Nội},
+  year      = {2014},
+  keywords  = {vietnam}
+}
+
+@book{phamngochung2014ut,
+  title     = {Kiểm thử đơn vị tự động dựa trên phân tích mã nguồn},
+  author    = {Phạm, Ngọc Hùng and Trần, Hoàng Việt},
+  publisher = {Nhà xuất bản Đại học Quốc gia Hà Nội},
+  address   = {Hà Nội},
+  year      = {2023},
+  keywords  = {vietnam}
+}
+
+@thesis{nguyenducanh2015,
+  title       = {Xây dựng công cụ kiểm thử tự động cho chương trình C},
+  author      = {Nguyễn, Đức Anh},
+  type        = {Luận văn thạc sĩ},
+  institution = {Trường Đại học Công nghệ - ĐHQGHN},
+  address     = {Hà Nội},
+  year        = {2015},
+  keywords    = {vietnam}
+}
+
+% ================== Tài liệu tiếng Anh ==================
+
+@inproceedings{sen2005cute,
+  title     = {CUTE: a concolic unit testing engine for C},
+  author    = {Sen, Koushik and Marinov, Darko and Agha, Gul},
+  booktitle = {Proceedings of the 10th European Software Engineering Conference held jointly with 13th ACM SIGSOFT International Symposium on Foundations of Software Engineering (ESEC/FSE-13)},
+  pages     = {263--272},
+  year      = {2005}
+}
+
+@inproceedings{trannguyenhuong2022stub,
+  title     = {An Automated Stub Method for Unit Testing C/C++ Projects},
+  author    = {Tran, Nguyen Huong and Le, Huu Chung and Nguyen, Tung Lam and Tran, Hoang-Viet and Pham, Ngoc Hung},
+  booktitle = {The 14th International Conference on Knowledge and Systems Engineering (KSE)},
+  year      = {2022}
+}
+
+@article{nguyentunglam2024embedded,
+  title   = {Automated test data generation and stubbing method for C/C++ embedded projects},
+  author  = {Nguyen, Tung Lam and Nguyen, Vu Binh Duong and Nguyen, Le Khoi and Pham, Ngoc Hung},
+  journal = {ResearchGate},
+  year    = {2024}
+}
+
+@book{williams2019cppconcurrency,
+  title     = {C++ Concurrency in Action: Practical Multithreading},
+  author    = {Williams, Anthony},
+  edition   = {2},
+  publisher = {Manning Publications},
+  year      = {2019}
+}
+
+@manual{eclipsecdt2025,
+  title  = {Eclipse CDT (C/C++ Development Tooling) Technical Documentation - AST and Parser Guide},
+  author = {{Eclipse Foundation}},
+  year   = {2025},
+  url    = {https://www.eclipse.org/cdt/}
+}
+
+@manual{vectorcast2025,
+  title  = {VectorCAST/C++ User's Guide: Automated Unit and Integration Testing for C/C++},
+  author = {{Vector Informatik GmbH}},
+  year   = {2025},
+  url    = {https://www.vector.com/}
+}
+
+@misc{cppreference_atomic,
+  title  = {std::atomic},
+  author = {{cppreference.com}},
+  year   = {2025},
+  url    = {https://en.cppreference.com/w/cpp/atomic/atomic},
+  note   = {Truy cập ngày 06/06/2026}
+}

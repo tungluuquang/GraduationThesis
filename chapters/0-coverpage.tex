@@ -1,0 +1,203 @@
+% =====================================================================
+%  chapters/0-coverpage.tex
+%  Khóa luận tốt nghiệp: "Phương pháp tạo dữ liệu kiểm thử thủ công
+%  cho đối tượng atomic trong dự án C++"
+%  Sinh viên: Lưu Quang Tùng - MSSV 23020150
+%  Cán bộ hướng dẫn: PGS.TS. Phạm Ngọc Hùng
+%
+%  Gồm: 3 trang bìa (bìa có logo, bìa có cán bộ hướng dẫn, bìa tiếng Anh),
+%       Lời cam đoan, Lời cảm ơn, Tóm tắt (tiếng Việt) và Abstract (tiếng Anh).
+%
+%  LƯU Ý: dòng "HÀ NỘI - <năm>" được đẩy xuống sát đáy khung nhờ lệnh \vfill
+%  đặt ngay trước nó. Nếu bạn thêm/bớt nội dung phía trên, dòng này vẫn ở đáy.
+% =====================================================================
+
+%-------TITLE PAGE------%
+\begin{titlepage}
+	\center{}
+	\begin{tikzpicture}[overlay,remember picture]
+		\draw [line width=3pt,rounded corners=0pt,]
+		($ (current page.north west) + (25mm,-25mm) $) rectangle ($ (current page.south east) + (-15mm,25mm) $);
+		\draw [line width=1pt,rounded corners=0pt]
+		($ (current page.north west) + (26.5mm,-26.5mm) $) rectangle ($ (current page.south east) + (-16.5mm,26.5mm) $);
+	\end{tikzpicture}
+	
+	{\large \bfseries ĐẠI HỌC QUỐC GIA HÀ NỘI\\ TRƯỜNG ĐẠI HỌC CÔNG NGHỆ}\\[1cm]
+	\includegraphics[width=0.25\linewidth]{images/Logo_UET.png}\\[1cm]
+	
+	{\Large \bfseries Lưu Quang Tùng}\\[1.5cm]
+	{\LARGE \bfseries ECLIPSE CDT VÀ CLANG: NGHIÊN CỨU THỰC NGHIỆM ĐỊNH HƯỚNG THIẾT KẾ LỚP PHÂN TÍCH MÃ NGUỒN TRONG CÔNG CỤ KIỂM THỬ C/C++}\\[0.2cm]
+	% {\LARGE \bfseries CHO ĐỐI TƯỢNG ATOMIC TRONG DỰ ÁN C++}\\[0.2cm]
+	
+	\vspace{1.5cm}
+	{\large \bfseries KHÓA LUẬN TỐT NGHIỆP ĐẠI HỌC HỆ CHÍNH QUY}\\
+	{\large \bfseries Ngành: Công nghệ thông tin}
+	
+	\vfill
+	{\large \bfseries HÀ NỘI \@- \the\year}\\
+	\vspace{0.5cm}
+\end{titlepage}
+
+%-------TITLE PAGE (kèm cán bộ hướng dẫn)------%
+\begin{titlepage}
+	\center{}
+	\begin{tikzpicture}[overlay,remember picture]
+		\draw [line width=3pt,rounded corners=0pt,]
+		($ (current page.north west) + (25mm,-25mm) $) rectangle ($ (current page.south east) + (-15mm,25mm) $);
+		\draw [line width=1pt,rounded corners=0pt]
+		($ (current page.north west) + (26.5mm,-26.5mm) $) rectangle ($ (current page.south east) + (-16.5mm,26.5mm) $);
+	\end{tikzpicture}
+	
+	{\large \bfseries ĐẠI HỌC QUỐC GIA HÀ NỘI\\ TRƯỜNG ĐẠI HỌC CÔNG NGHỆ}\\[2cm]
+	
+	{\Large \bfseries Lưu Quang Tùng}\\[2cm]
+	{\LARGE \bfseries ECLIPSE CDT VÀ CLANG: NGHIÊN CỨU THỰC NGHIỆM ĐỊNH HƯỚNG THIẾT KẾ LỚP PHÂN TÍCH MÃ NGUỒN TRONG CÔNG CỤ KIỂM THỬ C/C++}\\[0.2cm]
+	% {\LARGE \bfseries CHO ĐỐI TƯỢNG ATOMIC TRONG DỰ ÁN C++}\\[0.2cm]
+	
+	\vspace{1.5cm}
+	{\large \bfseries KHÓA LUẬN TỐT NGHIỆP ĐẠI HỌC HỆ CHÍNH QUY}\\
+	{\large \bfseries Ngành: Công nghệ thông tin}\\[1cm]
+	\begin{flushleft}
+		{\large \bfseries Cán bộ hướng dẫn: PGS.TS. Phạm Ngọc Hùng}
+	\end{flushleft}
+	
+	\vfill
+	{\large \bfseries HÀ NỘI \@- \the\year}\\
+	\vspace{0.5cm}
+\end{titlepage}
+
+%-------TITLE PAGE (tiếng Anh)------%
+\begin{titlepage}
+	\center{}
+	\begin{tikzpicture}[overlay,remember picture]
+		\draw [line width=3pt,rounded corners=0pt,]
+		($ (current page.north west) + (25mm,-25mm) $) rectangle ($ (current page.south east) + (-15mm,25mm) $);
+		\draw [line width=1pt,rounded corners=0pt]
+		($ (current page.north west) + (26.5mm,-26.5mm) $) rectangle ($ (current page.south east) + (-16.5mm,26.5mm) $);
+	\end{tikzpicture}
+	
+	{\large \bfseries VIETNAM NATIONAL UNIVERSITY, HANOI\\ UNIVERSITY OF ENGINEERING AND TECHNOLOGY}\\[2cm]
+	
+	{\Large \bfseries Luu Quang Tung}\\[2cm]
+	{\LARGE \bfseries ECLIPSE CDT AND CLANG: AN EMPIRICAL STUDY ON THE DESIGN OF THE SOURCE CODE ANALYSIS LAYER IN C/C++ TESTING TOOLS}\\[0.2cm]
+	% {\LARGE \bfseries FOR ATOMIC OBJECTS IN C++ PROJECTS}\\[0.2cm]
+	
+	\vspace{1.5cm}
+	{\large \bfseries BACHELOR'S THESIS}\\
+	{\large \bfseries Major: Information Technology}\\[1cm]
+	\begin{flushleft}
+		{\large \bfseries Supervisor: Assoc. Prof., PhD Pham Ngoc Hung}
+	\end{flushleft}
+	
+	\vfill
+	{\large \bfseries Hanoi \@- \the\year}\\
+	\vspace{0.5cm}
+\end{titlepage}
+
+\changefontsizes[16pt]{13pt}
+
+\addtocontents{toc}{\vspace{-1cm}}
+\addcontentsline{toc}{chapter}{Lời cam đoan}
+\begin{center}
+    \textbf{LỜI CAM ĐOAN}
+\end{center}
+
+Em xin cam đoan: Khóa luận tốt nghiệp ``Eclipse CDT và Clang: Nghiên cứu thực nghiệm định hướng thiết kế lớp phân tích mã nguồn trong công cụ kiểm thử C/C++''
+là của em. Toàn bộ những tri thức, nội dung, kết quả của người khác có đề cập trong khóa luận đều được trích dẫn nguồn gốc
+cụ thể. Khóa luận và mã nguồn là công trình nghiên cứu và phát triển của cá nhân em.
+
+Nếu vi phạm những điều đã cam đoan, em xin chấp nhận tất cả những truy cứu về trách nhiệm theo quy định của Trường Đại
+học Công nghệ \@- ĐHQGHN.\@
+
+\begin{flushright}
+    \begin{varwidth}{\linewidth}\centering Hà Nội, ngày \ldots{} tháng \ldots{} năm \the\year\\
+        Sinh viên\\[2cm]
+        Lưu Quang Tùng
+    \end{varwidth}
+\end{flushright}
+
+\newpage
+
+\addcontentsline{toc}{chapter}{Lời cảm ơn}
+\begin{center}
+    \textbf{LỜI CẢM ƠN}
+\end{center}
+
+Lời đầu tiên cho phép em bày tỏ lòng biết ơn chân thành đến Khoa Công nghệ Thông tin \@- Trường Đại học Công nghệ, ĐHQGHN,
+nơi em đã có cơ hội tiếp xúc với những kiến thức mới mẻ và được học hỏi từ những người giáo viên xuất sắc.
+
+Em xin gửi lời cảm ơn chân thành nhất đến PGS.TS. Phạm Ngọc Hùng, những người đã tận tình định
+hướng, góp ý và động viên em trong suốt quá trình thực hiện khóa luận. Sự hướng dẫn tận tâm và hỗ trợ sát sao của các
+thầy là nguồn động lực lớn giúp em vượt qua những khó khăn trong quá trình nghiên cứu.
+
+Cuối cùng, em xin gửi lời cảm ơn tới các thành viên của Phòng thí nghiệm Đảm bảo chất lượng phần mềm (Khoa Công nghệ thông
+tin, Trường Đại học Công nghệ, ĐHQGHN) đã tư vấn, ủng hộ và động viên em trong quá trình hoàn thành khóa luận.
+
+\newpage
+\addcontentsline{toc}{chapter}{Tóm tắt}
+\begin{center}
+    \textbf{TÓM TẮT}
+\end{center}
+\changefontsizes[16pt]{12pt}
+
+\textit{\textbf{Tóm tắt:}} Trong phát triển phần mềm hiện đại, kiểm thử đơn vị đóng vai trò quan trọng trong việc đảm bảo
+chất lượng và độ tin cậy của hệ thống. Công cụ AKAUTAUTO, được phát triển bởi Phòng thí nghiệm Đảm bảo chất lượng phần mềm
+(Trường Đại học Công nghệ, ĐHQGHN) phối hợp cùng FPT-GAM, sử dụng kỹ thuật thực thi tượng trưng động để hỗ trợ kiểm thử tự
+động cho các chương trình C/C++. Tuy nhiên, hệ thống vẫn gặp hạn chế khi xử lý các chương trình sử dụng đối tượng
+\texttt{atomic}, do chưa hỗ trợ đầy đủ việc mô hình hóa và tương tác với kiểu dữ liệu này trong quá trình phân tích và
+kiểm thử.
+
+Nghiên cứu này đề xuất mở rộng AKAUTAUTO nhằm hỗ trợ các đối tượng \texttt{atomic} trong quy trình kiểm thử. Giải pháp
+tập trung vào hai hướng chính:
+
+\begin{itemize}
+    \item \textbf{Mở rộng mô hình biểu diễn dữ liệu nguyên tử:} bổ sung cơ chế nhận diện và xây dựng cấu trúc dữ liệu
+    tương ứng cho các biến \texttt{atomic} trong quá trình phân tích chương trình, cho phép hệ thống hiển thị và quản lý
+    các đối tượng nguyên tử tương tự các kiểu dữ liệu đã được hỗ trợ trước đó.
+    \item \textbf{Hỗ trợ thực thi và đánh giá kiểm thử đối với các đối tượng nguyên tử:} bổ sung khả năng xử lý các thao
+    tác phổ biến như \texttt{load}, \texttt{store}, \texttt{exchange} và \texttt{compare\_exchange}, cho phép người dùng
+    thiết lập dữ liệu kiểm thử, thực thi chương trình và theo dõi kết quả độ phủ mã nguồn đối với các nhánh liên quan đến
+    biến \texttt{atomic}.
+\end{itemize}
+
+Kết quả thực nghiệm cho thấy giải pháp đề xuất giúp AKAUTAUTO hỗ trợ hiệu quả hơn việc kiểm thử các chương trình sử dụng
+đối tượng nguyên tử. Hệ thống có thể nhận diện và biểu diễn chính xác các biến \texttt{atomic}, đồng thời hỗ trợ người
+dùng xây dựng và thực thi các ca kiểm thử để đánh giá độ phủ mã nguồn. Cải tiến này góp phần mở rộng phạm vi áp dụng của
+AKAUTAUTO đối với các hệ thống nhúng và ứng dụng đa luồng sử dụng cơ chế đồng bộ hóa dựa trên \texttt{atomic}.
+
+\vspace{-0.5cm}
+\begin{flushleft}
+  \textit{\textbf{Từ khóa: }AKAUTAUTO, kiểm thử đơn vị, thực thi tượng trưng động, \texttt{atomic}, độ phủ mã nguồn, C/C++.}
+\end{flushleft}
+
+\newpage
+\addcontentsline{toc}{chapter}{Abstract}
+\begin{center}
+    \textbf{ABSTRACT}
+\end{center}
+\changefontsizes[16pt]{12pt}
+
+\textit{\textbf{Abstract:}} In modern software development, unit testing plays a key role in ensuring the quality and
+reliability of software systems. The AKAUTAUTO tool, developed by the Software Quality Assurance Laboratory (University of
+Engineering and Technology, VNU Hanoi) in cooperation with FPT-GAM, applies dynamic symbolic execution to support automated
+testing of C/C++ programs. However, the tool still has limitations when handling programs that use \texttt{atomic} objects,
+because the modelling of and interaction with this data type are not fully supported during program analysis and testing.
+
+This study proposes an extension of AKAUTAUTO to support \texttt{atomic} objects in the testing workflow. The solution
+focuses on two main directions: (i) extending the representation model for atomic data --- adding a mechanism that
+recognises \texttt{atomic} variables and builds the corresponding data structure during program analysis, so that the
+system can display and manage atomic objects similarly to previously supported data types; and (ii) supporting test
+execution and evaluation for atomic objects --- adding handling for common operations such as \texttt{load}, \texttt{store},
+\texttt{exchange} and \texttt{compare\_exchange}, allowing users to configure test data, execute the program and monitor
+code coverage for branches related to \texttt{atomic} variables.
+
+Experimental results show that the proposed solution enables AKAUTAUTO to support the testing of programs that use atomic
+objects more effectively. The system recognises and represents \texttt{atomic} variables correctly, and helps users build
+and execute test cases for evaluating code coverage. This improvement extends the applicability of AKAUTAUTO to embedded
+systems and multithreaded applications that rely on atomic-based synchronisation.
+
+\vspace{-0.5cm}
+\begin{flushleft}
+  \textit{\textbf{Keywords: }AKAUTAUTO, unit testing, dynamic symbolic execution, \texttt{atomic}, code coverage, C/C++.}
+\end{flushleft}
+\changefontsizes[16pt]{13pt}
